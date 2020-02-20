@@ -4,6 +4,22 @@ import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 
 class MainBox extends React.Component {
 
+  state = {
+    currentPage: "profile"
+  }
+
+  onChangePage = (newPage) => {
+      this.setState({currentPage: newPage})
+  }
+
+  renderPageComp() {
+
+    if (this.state.currentPage === 'profile') return <Profile />
+    else if (this.state.currentPage === 'photos') return <Photos />
+    else if (this.state.currentPage === 'cocktails') return <Cocktails />
+    else return <Pokemon />
+    
+  }
 
   render() {
 
@@ -17,8 +33,8 @@ class MainBox extends React.Component {
 
     return (
       <div>
-        <MenuBar />
-        {detailsToDisplay}
+        <MenuBar onChangePage={this.onChangePage} />
+        {this.renderPageComp()}
       </div>
     )
   }
